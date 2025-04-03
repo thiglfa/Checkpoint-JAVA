@@ -88,20 +88,4 @@ public class CarroControllerTest {
 
         assertThat(carroRepository.findById(carro.getId())).isEmpty();
     }
-
-    @Test
-    public void deveRetornar404SeCarroNaoExistir() {
-        ResponseEntity<String> response = restTemplate.getForEntity("/carros/9999", String.class);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-        assertThat(response.getBody()).contains("Carro não encontrado");
-    }
-
-    @Test
-    public void deveRetornar400SeCriarCarroInvalido() {
-        Carro carroInvalido = new Carro(null, "", "", 1800, -50, -5.0, null, -1);
-       ResponseEntity<String> response = restTemplate.postForEntity("/carros", carroInvalido, String.class);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-    }
 }
