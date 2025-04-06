@@ -29,3 +29,58 @@ PUT /carros/{id} → Atualiza um carro existente.
 DELETE /carros/{id} → Remove um carro do catálogo
 
 - Testes Unitários
+
+-----------------------------------/
+
+Instruções para Deploy e Teste
+
+1. Pré-requisitos
+- Java 17
+- Maven
+- Git
+
+2. Clonando o Repositório
+git clone https://github.com/seu-usuario/catalogo-carros.git
+cd catalogo-carros
+
+3. Build do Projeto
+mvn clean install
+
+4. Rodando o Projeto
+mvn spring-boot:run
+A API estará disponível em: http://localhost:8080
+
+5. Testando a API
+
+Testando os Endpoints com cURL
+GET /carros/potencia:
+curl -X GET http://localhost:8080/carros/potencia
+
+GET /carros/{id}:
+curl -X GET http://localhost:8080/carros/1
+
+POST /carros:
+curl -X POST http://localhost:8080/carros -H "Content-Type: application/json" -d '{
+  "marca": "Toyota",
+  "modelo": "Corolla",
+  "ano": 2022,
+  "potencia": 170,
+  "economia": 12.5,
+  "tipo": "combustao",
+  "preco": 120000
+}'
+
+Rodando os Testes Automatizados
+mvn test
+
+Gerando Relatório de Cobertura de Testes
+mvn jacoco:report
+Abrir: target/site/jacoco/index.html
+
+6. Deploy em Produção
+
+#Gerar o JAR
+mvn package
+
+Rodar o JAR
+java -jar target/catalogo-carros-1.0.jar
